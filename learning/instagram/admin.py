@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Post
+from .models import Post, Comment, Tag
 
 
 # # 등록법 1
@@ -29,3 +29,11 @@ class PostAdmin(admin.ModelAdmin):
     # admin에서도 custum field 생성 가능 - model에서 정의한 custom field보다 우선순위 높음
     # def message_length(self, post):
     #     return len(post.message)
+
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    pass

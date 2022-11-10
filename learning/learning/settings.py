@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_extensions',
     'debug_toolbar',
+    'accounts',
     'instagram',
 ]
 
@@ -129,3 +130,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    # 실제 파일이 저장되는 
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+AUTH_USER_MODEL = 'auth.User'
