@@ -15,3 +15,6 @@ class Post(models.Model):
     def message_length(self):
         return len(self.message)
     message_length.short_description = "메시지 글자 수"
+
+    class Meta:
+        ordering = ['-id']
