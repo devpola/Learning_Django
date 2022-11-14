@@ -1,5 +1,7 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpRequest, Http404
 from django.shortcuts import get_object_or_404, render
+from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView
 
 from .models import Post
@@ -14,6 +16,7 @@ from .models import Post
 #         'post_list': qs,
 #     })
 
+# @method_decorator(login_required, name='dispatch')
 class PostListView(ListView):
     model = Post    # 모델명소문자_list 이름의 QuerySet을 template에 넘겨줌 / object_list로도 접근 가능
     pagenate_by = 10    # 페이징 처리 지원 -> 'page' 이름의 query string으로 사용가능 ex) ?page=2
