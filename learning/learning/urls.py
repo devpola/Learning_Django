@@ -17,9 +17,15 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
-
+from django.views.generic import TemplateView, RedirectView
 
 urlpatterns = [
+    # path('', TemplateView.as_view(template_name='root.html'), name='root'),
+    path('', RedirectView.as_view(
+        # url='/instagram/'
+        # url reverse 사용할 경우 아래와 같이
+        pattern_name='instagram:post_list'
+    )),
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('instagram/', include('instagram.urls')),
