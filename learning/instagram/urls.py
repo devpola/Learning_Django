@@ -16,6 +16,7 @@ register_converter(YearConverter, 'year')
 app_name = 'instagram'
 
 urlpatterns = [
+    path('new/', views.post_new, name='post_new'),
     # path('', views.post_list, name='post_list'),
     path('', views.PostListView.as_view(), name='post_list'),
     # path('<int:pk>/', views.post_detail),    # 매핑된 Converter의 to_python에 맞게 변환된 값이 인자로 전달
