@@ -60,5 +60,18 @@ class PostDetailView(DetailView):
             qs = qs.filter(is_public=True)
         return qs
 
+def post_edit(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save()
+            return redirect(post)
+    else:
+        form = PostForm(instance=post)
+    return render(request, 'instagram/post_form.html', {
+        'form': form,
+    })
+
 def archives_year(request, year):
     return HttpResponse(f"{year}년 archives")
