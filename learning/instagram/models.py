@@ -1,5 +1,8 @@
 from django.db import models
 from django.conf import settings
+from django.shortcuts import resolve_url
+from django.urls import reverse
+
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -11,6 +14,9 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        ordering = ['-id']
+
     # Java의 toString과 유사
     def __str__(self):
         # return f"Post object ({self.id})"
@@ -20,8 +26,9 @@ class Post(models.Model):
         return len(self.message)
     message_length.short_description = "메시지 글자 수"
 
-    class Meta:
-        ordering = ['-id']
+    def get_absolute_url(self):
+        # return reverse('instagram:post_detail', args=[self.pk])
+        return resolve_url('instagram:post_detail', pk=self.pk)
 
 # Post : Comment = 1 : N
 class Comment(models.Model):

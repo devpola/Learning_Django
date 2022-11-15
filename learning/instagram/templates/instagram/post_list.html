@@ -6,7 +6,9 @@
 </head>
 <body>
     {% for post in post_list %}
-        {{ post.message }}
+        <a href="{{ post.get_absolute_url }}">
+            {{ post.message }}
+        </a>
     {% endfor %}
 </body>
 </html>
