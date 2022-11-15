@@ -6,11 +6,16 @@ from django.views.generic import DetailView, ListView
 from .models import Post
 from .forms import PostForm
 
+@login_required
 def post_new(request):
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save()
+            # PostForm에서 author을 제외한 필드의 유효성 검사만 진행했기에, author가 없어도 통과 했었음.
+            # form.save 시, commit을 False로 주어, post.save를 보류하고 / author을 따로 지정
+            post = form.save(commit=False)  # commit False로 줄 경우, 모델 인스턴스.save() 호출이 되지 않음
+            post.author = request.user  # 현재 로그인되어있는 User Instance를 대입
+            post.save()
             return redirect(post)
     else:
         form = PostForm()
@@ -60,10 +65,11 @@ class PostDetailView(DetailView):
             qs = qs.filter(is_public=True)
         return qs
 
+@login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
-        form = PostForm(request.POST, request.FILES)
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
             post = form.save()
             return redirect(post)
