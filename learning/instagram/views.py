@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpRequest, Http404
 from django.shortcuts import get_object_or_404, render, redirect
@@ -55,7 +56,7 @@ class PostListView(ListView):
 #         'post': post
 #     })
 
-class PostDetailView(DetailView):
+class PostDetailView(DetailView):   # template_name 지정되지 않았다면, 모델명으로 템플릿 경로 유추(instagram/post_detail.html)
     model = Post    # 모델명소문자 이름의 QuerySet을 template에 넘겨줌 / object라는 이름으로도 접근 가능
     # queryset = Post.objects.filter(is_public=True)
 
@@ -68,6 +69,12 @@ class PostDetailView(DetailView):
 @login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
+
+    # 작성자 Check Tip
+    if post.author != request.user:
+        messages.error(request, '작성자만 수정할 수 있습니다.')
+        return redirect(post)
+
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
