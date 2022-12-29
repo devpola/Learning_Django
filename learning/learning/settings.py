@@ -130,6 +130,8 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'   # 파일을 url로 접근 시 사용되는 경로
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    # 실제 파일이 저장되는 경로
 
+LOGIN_URL = '/accounts/login'
+
 INTERNAL_IPS = [
     '127.0.0.1',
 ]
