@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--  user - 로그인 : User 모델 인스턴스 / - 로그아웃 : AnonymousUser (python class) 인스턴스-->
+  <h2>User: {{ user }}</h2>
+    {% if user.profile %}
+        {{ user.profile.address }}
+        {{ user.profile.zipcode }}
+    {% endif %}
+</body>
+</html>
