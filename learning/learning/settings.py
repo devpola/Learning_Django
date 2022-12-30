@@ -132,6 +132,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')    # 실제 파일이 저장되는 
 
 LOGIN_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/accounts/profile'
+LOGOUT_REDIRECT_URL = '/accounts/login' # or reverse_lazy('login')
 
 INTERNAL_IPS = [
     '127.0.0.1',

@@ -53,6 +53,3 @@ class SignUpView(CreateView):
         user = self.object
         auth_login(self.request, user)
         return response
-
-def logout(request):
-    pass
